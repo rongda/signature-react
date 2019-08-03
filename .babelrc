@@ -1,0 +1,14 @@
+{
+  "presets": ["env", "react"],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-object-rest-spread",
+    [
+      "import", {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": false // true(less) css false
+      }
+    ]
+  ]
+}
