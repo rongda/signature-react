@@ -1,0 +1,36 @@
+.app-overview {
+  .ant-card {
+    margin-bottom: 24px;
+    &.no-border {
+      .ant-card-body {
+        padding: 0;
+      }
+    }
+  }
+  .app-overview-basic {
+    height: 190px;
+    padding: 40px;
+    background-color: #f5f6f8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .app-overview-row {
+    padding: 30px 40px;
+    .app-overview-col-title {
+      padding-bottom: 10px;
+    }
+    .app-overview-day {
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      background-color: #2196f3;
+      border-radius: 60px;
+      text-align: center;
+      color: #fff;
+      &.yestoday {
+        background-color: #ffc107;
+      }
+    }
+  }
+}

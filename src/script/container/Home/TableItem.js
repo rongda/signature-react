@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table, Switch, Button } from 'antd'
 import overview from '../../api/overview'
+import ModifyApp from '../../component/ModifyApp'
 import {
   TABLE_PAGINATION, INIT_PAGINATION
 } from '../../static/constant'
@@ -16,8 +17,16 @@ export default class Tableitem extends React.Component {
         total: 0 // 总共条数
       },
       loading: false,
-      tableData: []
+      tableData: [],
+      allow: false,
+      code: null
     }
+    this.modifyApp = this.modifyApp.bind(this)
+    this.handleCloseModal = this.handleCloseModal.bind(this)
+  }
+
+  modifyApp(code) {
+    this.setState({ allow: true, code })
   }
 
   componentDidMount() {
@@ -52,8 +61,12 @@ export default class Tableitem extends React.Component {
     this.getData({ row, page })
   }
 
+  handleCloseModal() {
+    this.setState({ allow: false })
+  }
+
   render() {
-    const { pagination, loading, tableData } = this.state
+    const { pagination, loading, tableData, allow, code } = this.state
     const columns = [
       {
         title: '应用名称',
@@ -95,29 +108,35 @@ export default class Tableitem extends React.Component {
         fixed: 'right',
         width: 120,
         render: (text, record, index) => (
-          <Button type='primary'>修改</Button>
+          <Button
+            type='primary'
+            onClick={this.modifyApp.bind(this, record.code)}
+          >修改</Button>
         )
       }
     ]
 
     return (
-      <Table
-        rowKey={'id'}
-        loading={loading}
-        columns={columns}
-        scroll={{ x: 800 }}
-        dataSource={tableData}
-        className='home-appitem-table'
-        pagination={{
-          current: pagination.page,
-          pageSize: pagination.row,
-          pageSizeOptions: TABLE_PAGINATION,
-          showQuickJumper: true,
-          showSizeChanger: true,
-          total: pagination.total
-        }}
-        onChange={pagination => this.handleTableChange(pagination)}
-      />
+      <React.Fragment>
+        <Table
+          rowKey={'id'}
+          loading={loading}
+          columns={columns}
+          scroll={{ x: 800 }}
+          dataSource={tableData}
+          className='home-appitem-table'
+          pagination={{
+            current: pagination.page,
+            pageSize: pagination.row,
+            pageSizeOptions: TABLE_PAGINATION,
+            showQuickJumper: true,
+            showSizeChanger: true,
+            total: pagination.total
+          }}
+          onChange={pagination => this.handleTableChange(pagination)}
+        />
+        {allow && <ModifyApp code={code} onCloseModal={this.handleCloseModal} />}
+      </React.Fragment>
     )
   }
 }

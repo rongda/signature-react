@@ -16,8 +16,8 @@ export default () => ({
     return instance.post('/logout')
   },
   // 绑定邮箱
-  bindingEmail(email) {
-    return instance.post('/app/user/bindingEmail', { email })
+  bindingEmail(params) {
+    return instance.post('/app/user/bindingEmail', params)
   },
   // 修改密码
   changePwd(params) {

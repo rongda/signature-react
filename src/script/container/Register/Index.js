@@ -2,38 +2,17 @@ import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import ReactMarkdown from 'react-markdown'
 import { Form, Input, Button, Row, Col, message, Icon, Checkbox } from 'antd'
 import logo from '../../../assets/logo.png'
 import permission from '../../api/permission'
 import { tryLogout } from '../../store/actions'
 import { mobilereg, pwdreg } from '../../utils/reg'
-import ProtocolItem from './ProtocolItem'
-import privacy from '../../static/privacy.md'
-import server from '../../static/server.md'
+import ProtocolItem from '../../component/ProtocolItem'
+import content from '../../static/content'
 
 const FormItem = Form.Item
 const { captchaSendSms, userRegister } = permission()
 const second = 60
-
-// content
-const content = [
-  {
-    type: 'server',
-    title: '超级签名服务条款',
-    main: <ReactMarkdown source={server} escapeHtml={false} />
-  },
-  {
-    type: 'privacy',
-    title: '超级签名隐私声明',
-    main: <ReactMarkdown source={privacy} escapeHtml={false} />
-  },
-  {
-    type: null,
-    title: null,
-    main: null
-  }
-]
 
 // 正确修改完密码后，退出原有的登录（如果有的话），跳转到登录页面
 @connect(

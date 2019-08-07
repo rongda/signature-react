@@ -8,5 +8,8 @@ export default () => ({
   // 账号信息
   getAccountInfo() {
     return instance.post('/app/overview/accountInfo')
+  },
+  getAppInfo(params) {
+    return instance.post('/app/overview/appinfo', params)
   }
 })

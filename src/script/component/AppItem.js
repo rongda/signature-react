@@ -1,21 +1,20 @@
 import React from 'react'
-import { Menu, Input, Icon, Divider, Button } from 'antd'
+import { Menu, Input, Icon, Divider } from 'antd'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import queryString from 'query-string'
+import { getAppItem, getAppItemFilter } from '../store/actions'
+import Publish from './Publish'
 
-const appItem = [
+@connect(
+  state => ({
+    appItem: state.appItem
+  }),
   {
-    id: 122112,
-    icon_url: 'https://dummyimage.com/150x150',
-    name: '支付宝'
-  },
-  {
-    id: 122,
-    icon_url: 'https://dummyimage.com/150x150',
-    name: '云音乐'
+    getAppItem,
+    getAppItemFilter
   }
-]
-
+)
 @withRouter
 class AppItem extends React.Component {
   constructor() {
@@ -24,11 +23,21 @@ class AppItem extends React.Component {
     const id = search && pathname === '/appinfo' && queryString.parse(search).id ? queryString.parse(search).id : null
     const openKeys = id ? [`${pathname.split('/')[1]},${id}`] : []
     this.state = {
-      value: '',
       openKeys,
       defaultSelectedKeys: openKeys
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleCallback = this.handleCallback.bind(this)
+  }
+
+  handleCallback() {
+    console.log('handleCallback')
+  }
+
+  componentDidMount() {
+    // console.log(this.props)
+    const { appItem, getAppItem } = this.props
+    appItem.source.length === 0 && getAppItem()
   }
 
   componentWillUnmount() {
@@ -44,13 +53,14 @@ class AppItem extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({
-      value: e.target.value
-    })
+    const { value } = e.target
+    const { getAppItemFilter } = this.props
+    getAppItemFilter(value)
   }
 
   render() {
-    const { openKeys, defaultSelectedKeys, value } = this.state
+    const { openKeys, defaultSelectedKeys } = this.state
+    const { appItem } = this.props
     return (
       <React.Fragment>
         <div className='side-wrap'>
@@ -59,38 +69,35 @@ class AppItem extends React.Component {
             className='app-search'
             placeholder='搜索应用'
             prefix={<Icon type='search' style={{ color: 'rgba(0,0,0,.25)' }} />}
-            value={value}
+            value={appItem.keys}
             onChange={this.handleChange}
           />
-          <Button
-            type='primary'
-            icon='plus-circle'
-            className='add-app'
-          >发布应用</Button>
+          <Publish callback={this.handleCallback} />
         </div>
-        <Menu
-          mode='inline'
-          openKeys={openKeys}
-          className='app-item-menu'
-          defaultSelectedKeys={defaultSelectedKeys}
-          onClick={({
-            item, key, keyPath, domEvent
-          }) => this.gotoAppDetail(
-            item, key, keyPath, domEvent
-          )}
-        >
-          {appItem.map(item => (
-            <Menu.Item key={`appinfo,${item.id}`}>
-              <div className='app-item'>
-                <img src={item.icon_url} width='35' />
-                <div className='app-item-name-ios'>
-                  <span>{item.name}</span>
-                  <span>iOS</span>
+        <div className='app-item-menu'>
+          <Menu
+            mode='inline'
+            openKeys={openKeys}
+            defaultSelectedKeys={defaultSelectedKeys}
+            onClick={({
+              item, key, keyPath, domEvent
+            }) => this.gotoAppDetail(
+              item, key, keyPath, domEvent
+            )}
+          >
+            {appItem.filter.map(item => (
+              <Menu.Item key={`appinfo,${item.id}`}>
+                <div className='app-item'>
+                  <img src={item.icon_url} width='35' />
+                  <div className='app-item-name-ios'>
+                    <span>{item.name}</span>
+                    <span>iOS</span>
+                  </div>
                 </div>
-              </div>
-            </Menu.Item>
-          ))}
-        </Menu>
+              </Menu.Item>
+            ))}
+          </Menu>
+        </div>
       </React.Fragment>
     )
   }

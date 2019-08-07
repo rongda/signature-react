@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import auth from './auth'
+import appItem from './appItem'
 
 const reducer = combineReducers({
-  auth
+  auth,
+  appItem
 })
 
 export default reducer

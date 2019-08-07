@@ -56,7 +56,7 @@ user.post('/app/user/info', (req, res) => res.send({
   err_msg: 'success',
   data: Mock.mock({
     credit_line: Random.natural,
-    email: /[a-zA-Z0-9_-]+/,
+    email: 'wrdwer0595@qq.com',
     phone: /^1[0-9]{10}$/,
     user_name: Random.name()
   })

@@ -24,23 +24,16 @@
     }
   }
   .app-item-menu {
+    overflow: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 305px;
+    bottom: 20px;
+    left: 0;
+    right: 0;
     .ant-menu-item {
       height: auto;
       line-height: normal;
-    }
-  }
-  .app-item {
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
-    img {
-      border-radius: 100%;
-      margin-right: 10px;
-    }
-    .app-item-name-ios {
-      span {
-        display: block;
-      }
     }
   }
   .logo {
@@ -60,7 +53,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    overflow-x: hidden;
   }
   .base-right {
     margin-left: 200px;
@@ -139,9 +131,6 @@
           color: #fff;
         }
       }
-      .ant-form {
-        padding: 20px;
-      }
       .table-title-data {
         height: 40px;
         line-height: 40px;
@@ -169,6 +158,29 @@
   }
   .bread-crumbs-title {
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.app-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  img {
+    border-radius: 100%;
+    margin-right: 10px;
+    &.square {
+      border-radius: 0
+    }
+  }
+  .app-item-name-ios {
+    span {
+      display: block;
+      &.gray {
+        font-size: 14px;
+        color: #adb1b6;
+      }
+    }
   }
 }
 .ant-popover-inner{

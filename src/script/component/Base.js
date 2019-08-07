@@ -84,7 +84,7 @@ class Base extends React.Component {
             <img src={logo} width='20' />
             <span>&ensp;iOS&ensp;App超级签名</span>
           </Link>
-          <div className='scroll-bar menu-wrap'>
+          <div className='menu-wrap'>
             <Menu
               mode='inline'
               openKeys={openKeys}

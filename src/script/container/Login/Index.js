@@ -1,12 +1,13 @@
 import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Form, Icon, Input, Button } from 'antd'
 import logo from '../../../assets/logo.png'
 import { tryLogin, loginSuccess } from '../../store/actions'
 import storage from '../../utils/storage'
 import { pwdreg } from '../../utils/reg'
+import RedirectLink from './RedirectLink'
 
 const FormItem = Form.Item
 
@@ -63,7 +64,7 @@ class Login extends React.Component {
     const { auth, form } = this.props
     const { getFieldDecorator } = form
     const { loading } = this.state
-    return auth.token ? <Redirect to='/' /> : (
+    return auth.token ? <RedirectLink href='/index' /> : (
       <div className='login'>
         <div className='login-main'>
           <div className='login-logo'>

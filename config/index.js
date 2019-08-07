@@ -7,7 +7,7 @@ module.exports = {
 		prod: 'production'
 	},
 	api: {
-		test: 'http://test.youduo.sicherdata.net',
+		test: 'https://supersign.sicherdata.net',
 		dev: 'http://192.168.100.2:6070',
 		local: 'http://192.168.100.2:6070',
 		prod: 'https://youduo.sicherdata.net'
