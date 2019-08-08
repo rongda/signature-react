@@ -9,6 +9,7 @@ import { tryLogout } from '../../store/actions'
 import { mobilereg, pwdreg } from '../../utils/reg'
 import ProtocolItem from '../../component/ProtocolItem'
 import content from '../../static/content'
+import encrypt from '../../utils/encrypt'
 
 const FormItem = Form.Item
 const { captchaSendSms, userRegister } = permission()
@@ -99,7 +100,10 @@ class Register extends React.PureComponent {
         console.log(confirm, param)
         try {
           await this.setState({ loading: true })
-          await userRegister(param)
+          await userRegister({
+            ...param,
+            password: encrypt.encryptFn(param.password)
+          })
           message.success('成功注册，请登录', 1, () => {
             // 退出原有的登录（如果有的话），跳转到登录页面
             tryLogout()

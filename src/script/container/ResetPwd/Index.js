@@ -7,6 +7,7 @@ import logo from '../../../assets/logo.png'
 import permission from '../../api/permission'
 import { tryLogout } from '../../store/actions'
 import { mobilereg, pwdreg } from '../../utils/reg'
+import encrypt from '../../utils/encrypt'
 
 const FormItem = Form.Item
 const { captchaSendSms, resetPwd } = permission()
@@ -96,7 +97,10 @@ class ResetPwd extends React.PureComponent {
         console.log(confirm, param)
         try {
           await this.setState({ loading: true })
-          await resetPwd(param)
+          await resetPwd({
+            ...param,
+            password: encrypt.encryptFn(param.password)
+          })
           message.success('密码修改成功', 1, () => {
             // 退出原有的登录（如果有的话），跳转到登录页面
             tryLogout()

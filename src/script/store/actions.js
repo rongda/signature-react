@@ -68,7 +68,7 @@ const getAppItemFilterSuccess = data => ({
 const getAppItem = () => async dispatch => {
   try {
     const { data } = await getAppList()
-    dispatch(getAppItemSuccess({
+    data && dispatch(getAppItemSuccess({
       keys: '',
       filter: data,
       source: data

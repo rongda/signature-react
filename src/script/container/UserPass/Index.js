@@ -4,6 +4,7 @@ import { Form, Input, Button, Row, Col, message } from 'antd'
 import Base from '../../component/Base'
 import { pwdreg } from '../../utils/reg'
 import permission from '../../api/permission'
+import encrypt from '../../utils/encrypt'
 
 const { changePwd } = permission()
 const FormItem = Form.Item
@@ -35,7 +36,10 @@ class UserPass extends React.Component {
         this.setState({
           loading: true
         }, () => {
-          changePwd(values).then(res => {
+          changePwd({
+            new_password: encrypt.encryptFn(values.new_password),
+            old_password: encrypt.encryptFn(values.old_password)
+          }).then(res => {
             message.success('修改密码成功', 1, () => {
               this.setState({ loading: false })
               this.props.form.resetFields()

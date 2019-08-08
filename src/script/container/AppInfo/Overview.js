@@ -16,15 +16,21 @@ class Overview extends React.Component {
     this.handleCloseModal = this.handleCloseModal.bind(this)
     this.handleCallback = this.handleCallback.bind(this)
   }
+  componentDidMount() {
+    this.getData()
+  }
+  componentWillReceiveProps(nextProps) {
+    const { id } = nextProps
+    id !== this.props.id && this.setState({ id }, () => {
+      this.getData()
+    })
+  }
   getData() {
     const { id } = this.props
     getAppInfo({ app_id: id }).then(({ data }) => {
       console.log(data)
       this.setState({ data })
     }).catch(error => console.log(error))
-  }
-  componentDidMount() {
-    this.getData()
   }
   handleCallback() {
     // 更新应用后的回调 获取当前最新当前数据
@@ -83,19 +89,19 @@ class Overview extends React.Component {
               </Col>
               <Col span={5}>
                 <div className='app-overview-col-title'>新增用户</div>
-                <div>0</div>
+                <div>{data && data.summary.today_new_count}</div>
               </Col>
               <Col span={5}>
                 <div className='app-overview-col-title'>活跃用户</div>
-                <div>0</div>
+                <div>{data && data.summary.today_new_active_count}</div>
               </Col>
               <Col span={5}>
                 <div className='app-overview-col-title'>启动次数</div>
-                <div>0</div>
+                <div>{data && data.summary.today_start_count}</div>
               </Col>
               <Col span={5}>
                 <div className='app-overview-col-title'>累计用户</div>
-                <div>0</div>
+                <div>{data && data.summary.today_all_count}</div>
               </Col>
             </Row>
             <Divider />
@@ -105,19 +111,19 @@ class Overview extends React.Component {
               </Col>
               <Col span={5}>
                 <div className='app-overview-col-title'>新增用户</div>
-                <div>0</div>
+                <div>{data && data.summary.yesterday_new_count}</div>
               </Col>
               <Col span={5}>
                 <div className='app-overview-col-title'>活跃用户</div>
-                <div>0</div>
+                <div>{data && data.summary.yesterday_new_active_count}</div>
               </Col>
               <Col span={5}>
                 <div className='app-overview-col-title'>启动次数</div>
-                <div>0</div>
+                <div>{data && data.summary.yesterday_start_count}</div>
               </Col>
               <Col span={5}>
                 <div className='app-overview-col-title'>累计用户</div>
-                <div>0</div>
+                <div>{data && data.summary.yesterday_all_count}</div>
               </Col>
             </Row>
           </div>
