@@ -20,7 +20,7 @@ export default class BasicItem extends React.Component {
 
   render() {
     const { data } = this.state
-    return data && (
+    return (
       <React.Fragment>
         <Row className='home-basic'>
           <Col span={12}>
@@ -31,7 +31,7 @@ export default class BasicItem extends React.Component {
             />
             &emsp;
             <div className='basic-msg'>
-              <span>{data.user_name}</span>
+              <span>{data && data.user_name}</span>
               <span>
                 <Icon type='pushpin' style={{ color: '#1890ff' }} />
                 &ensp;个人版
@@ -41,7 +41,7 @@ export default class BasicItem extends React.Component {
           <Col span={12} className=''>
             <Statistic
               title='账户余额'
-              value={data.balance}
+              value={data ? data.balance : 0}
               precision={2}
               suffix='元'
             />
@@ -57,8 +57,8 @@ export default class BasicItem extends React.Component {
                   <Icon type='question-circle' />
                 </Tooltip>
               </div>
-              <div>{data.summary.today_pv}</div>
-              <div>昨日：{data.summary.yesterday_pv}</div>
+              <div>{data ? data.summary.today_pv : 0}</div>
+              <div>昨日：{data ? data.summary.yesterday_pv : 0}</div>
             </Col>
             <Col span={6}>
               <div>今日UV&nbsp;
@@ -66,8 +66,8 @@ export default class BasicItem extends React.Component {
                   <Icon type='question-circle' />
                 </Tooltip>
               </div>
-              <div>{data.summary.today_uv}</div>
-              <div>昨日：{data.summary.yesterday_uv}</div>
+              <div>{data ? data.summary.today_uv : 0}</div>
+              <div>昨日：{data ? data.summary.yesterday_uv : 0}</div>
             </Col>
             <Col span={6}>
               <div>今日IP&nbsp;
@@ -75,8 +75,8 @@ export default class BasicItem extends React.Component {
                   <Icon type='question-circle' />
                 </Tooltip>
               </div>
-              <div>{data.summary.today_ip}</div>
-              <div>昨日：{data.summary.yesterday_ip}</div>
+              <div>{data ? data.summary.today_ip : 0}</div>
+              <div>昨日：{data ? data.summary.yesterday_ip : 0}</div>
             </Col>
             <Col span={6}>
               <div>今日下载&nbsp;
@@ -84,8 +84,8 @@ export default class BasicItem extends React.Component {
                   <Icon type='question-circle' />
                 </Tooltip>
               </div>
-              <div>{data.summary.today_dl}</div>
-              <div>昨日：{data.summary.yesterday_dl}</div>
+              <div>{data ? data.summary.today_dl : 0}</div>
+              <div>昨日：{data ? data.summary.yesterday_dl : 0}</div>
             </Col>
           </Row>
         </Card>

@@ -25,6 +25,7 @@ const options = {
 // env
 process.env.NODE_ENV = config.env.dev;
 process.env.api = config.api.dev;
+process.env.url = config.url.dev;
 
 const bundler = new Bundler(file, options);
 app.use(express.static(config.outDir));

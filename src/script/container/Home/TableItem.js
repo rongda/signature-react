@@ -1,12 +1,14 @@
 import React from 'react'
-import { Table, Switch, Button } from 'antd'
+import { Table, Switch, Button, message } from 'antd'
 import overview from '../../api/overview'
+import apps from '../../api/apps'
 import ModifyApp from '../../component/ModifyApp'
 import {
   TABLE_PAGINATION, INIT_PAGINATION
 } from '../../static/constant'
 
 const { getOverviewApps } = overview()
+const { updateStatus } = apps()
 
 export default class Tableitem extends React.Component {
   constructor() {
@@ -52,8 +54,23 @@ export default class Tableitem extends React.Component {
     }
   }
 
-  handleStatus(status) {
-    console.log(status)
+  handleStatus(record) {
+    console.log(record)
+    updateStatus(
+      record.id,
+      record.status
+    ).then(res => {
+      message.success('更新成功', 1, () => {
+        this.setState(preState => ({
+          tableData: preState.tableData.map(
+            item => item.id === record.id ? {
+              ...item,
+              status: item.status === 0 ? 1 : 0
+            } : item
+          )
+        }))
+      })
+    }).catch(error => console.log(error))
   }
 
   handleTableChange(pagination) {
@@ -99,7 +116,7 @@ export default class Tableitem extends React.Component {
         render: (text, record) => (
           <Switch
             checked={record.status !== 0}
-            onChange={this.handleStatus.bind(this, record.status)}
+            onChange={this.handleStatus.bind(this, record)}
           />
         )
       },

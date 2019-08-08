@@ -73,11 +73,14 @@ class AddAppForm extends React.Component {
             rules: [{
               required: true,
               message: '请正确输入主页地址'
+            }, {
+              pattern: /^[A-Za-z0-9]{2,10}$/,
+              message: '主页地址只能由2-10位字母或数字组成'
             }],
             normalize: value => value ? value.replace(/(^\s*)|(\s*$)/g, '') : value // 禁止输入空格
           })(
             <Input
-              addonAfter={'.roda.wang'}
+              addonAfter={process.env.url}
               placeholder='自定义主页地址'
               autoComplete={'off'}
             />

@@ -17,5 +17,9 @@ export default () => ({
   // 应用类型
   getAppCategory() {
     return instance.post('/app/category')
+  },
+  // 应用状态修改
+  updateStatus(id, status) {
+    return instance.post('/app/status/toggle', { id, status })
   }
 })
