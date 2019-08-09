@@ -58,7 +58,7 @@ export default class Tableitem extends React.Component {
     console.log(record)
     updateStatus(
       record.id,
-      record.status
+      record.status === 0 ? 1 : 0
     ).then(res => {
       message.success('更新成功', 1, () => {
         this.setState(preState => ({

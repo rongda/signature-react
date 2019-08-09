@@ -6,7 +6,7 @@ export default class Statistics extends React.Component {
     return (
       <Base content={
         <div className='statistics'>
-          Statistics
+          敬请期待
         </div>
       } />
     )

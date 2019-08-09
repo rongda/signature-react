@@ -1,6 +1,7 @@
 import React from 'react'
-import { Form, Row, Col, Input, Radio, Select, InputNumber, Upload, Button } from 'antd'
+import { Form, Row, Col, Input, Radio, Select, InputNumber, Upload, Button, Tooltip, Icon } from 'antd'
 import apps from '../api/apps'
+import storage from '../utils/storage'
 
 const { getAppCategory } = apps()
 const FormItem = Form.Item
@@ -24,7 +25,10 @@ class AddAppForm extends React.Component {
     const { form, onSubmit } = this.props
     form.validateFields((err, values) => {
       if (!err) {
-        onSubmit(values)
+        onSubmit({
+          values,
+          pics: values.pics.map(item => item.name)
+        })
       }
     })
   }
@@ -40,10 +44,14 @@ class AddAppForm extends React.Component {
     }
     return e && e.fileList
   }
+  handleBeforeUpload(file, fileList) {
+    console.log('handleBeforeUpload', file, fileList)
+    return false
+  }
   render() {
     const { category } = this.state
     const { form, info, isModify, isUpdate } = this.props
-    const { getFieldDecorator } = form
+    const { getFieldDecorator, getFieldValue } = form
     console.log('info', info)
     let btn = '发布'
     if (isModify) {
@@ -86,7 +94,14 @@ class AddAppForm extends React.Component {
             />
           )}
         </FormItem>
-        <FormItem {...formItemLayout} label={'消息推送'}>
+        <FormItem {...formItemLayout} label={(
+          <React.Fragment>
+            <span>消息推送</span>&nbsp;
+            <Tooltip placement='bottom' title={'消息推送可提高用户活跃度及应用留存率，但会影响第三方(微信、QQ等)登录。'}>
+              <Icon type='question-circle' />
+            </Tooltip>
+          </React.Fragment>
+        )}>
           {getFieldDecorator('notice_type', {
             initialValue: '1',
             rules: [{
@@ -99,8 +114,19 @@ class AddAppForm extends React.Component {
               <Radio value='2'>证书推送（请在推送时配置p12证书文件）</Radio>
             </Radio.Group>
           )}
+          <span style={{ color: '#f72c2c' }}>请谨慎选择！</span>&nbsp;
+          <Tooltip placement='bottom' title={'已上传的应用再修改消息提醒方式，可能会导致已安装用户无法正常使用。需要重新上传应用包，选择消息推送后让用户重新下载'}>
+            <Icon type='question-circle' />
+          </Tooltip>
         </FormItem>
-        <FormItem {...formItemLayout} label={'应用类别'}>
+        <FormItem {...formItemLayout} label={(
+          <React.Fragment>
+            <span>应用类别</span>&nbsp;
+            <Tooltip placement='bottom' title={'您想要展示给用户的应用类别'}>
+              <Icon type='question-circle' />
+            </Tooltip>
+          </React.Fragment>
+        )}>
           {getFieldDecorator('category_id', {
             initialValue: info ? info.category_id : 0,
             rules: [{
@@ -115,7 +141,14 @@ class AddAppForm extends React.Component {
             </Select>
           )}
         </FormItem>
-        <FormItem {...formItemLayout} label={'评分数显示'}>
+        <FormItem {...formItemLayout} label={(
+          <React.Fragment>
+            <span>评分数显示</span>&nbsp;
+            <Tooltip placement='bottom' title={'您想要展示给用户的评分数量，没有具体评价内容且分数固定为4.9分，您只需填写一个看似真实的评价数展示给用户，表现您的应用已有如此多的下载量。'}>
+              <Icon type='question-circle' />
+            </Tooltip>
+          </React.Fragment>
+        )}>
           {getFieldDecorator('rate', {
             initialValue: info ? info.rate : 0,
             rules: [{
@@ -123,10 +156,17 @@ class AddAppForm extends React.Component {
               message: '请填写分数'
             }]
           })(
-            <InputNumber min={0} max={10} />
+            <InputNumber min={0} max={5} />
           )}
         </FormItem>
-        <FormItem {...formItemLayout} label={'应用介绍'}>
+        <FormItem {...formItemLayout} label={(
+          <React.Fragment>
+            <span>应用介绍</span>&nbsp;
+            <Tooltip placement='bottom' title={'您想要展示给用户对此应用的详细介绍'}>
+              <Icon type='question-circle' />
+            </Tooltip>
+          </React.Fragment>
+        )}>
           {getFieldDecorator('description', {
             initialValue: info ? info.description : '',
             rules: [{
@@ -140,10 +180,28 @@ class AddAppForm extends React.Component {
         <FormItem {...formItemLayout} label={'详情图'}>
           {getFieldDecorator('pics', {
             valuePropName: 'fileList',
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            initialValue: info && info.pics ? info.pics.map(item => ({
+              ...item,
+              uid: item.id.toString()
+            })) : []
+            // initialValue: [{
+            //   uid: '1',
+            //   name: 't0120b2f23b554b8402.jpg',
+            //   url: 'https://p.ssl.qhimg.com/dmfd/400_300_/t0120b2f23b554b8402.jpg'
+            // }]
           })(
-            <Upload action='/upload.do' listType='picture'>
-              <Button type='primary'>上传</Button>
+            <Upload
+              accept='image/*'
+              listType='picture'
+              beforeUpload={this.handleBeforeUpload}
+              action={`${process.env.api}/app/upload/pic`}
+              headers={{ 'token': storage.getToken() }}
+            >
+              <Button
+                type='primary'
+                disabled={getFieldValue('pics').length >= 5}
+              >上传</Button>
             </Upload>
           )}
         </FormItem>

@@ -45,15 +45,15 @@ export default class UserInfo extends React.Component {
                 </Link>
               </Col>
               <Col span={8}>
-                <Link to='/notification'>
-                  <Card className='user-info-card' hoverable>
-                    <span>
-                      <Icon type='setting' style={{ fontSize: '30px', color: '#ccc' }} />
-                    </span>
-                    <span>通知设置</span>
-                    <span>通知设置</span>
-                  </Card>
-                </Link>
+                {/* <Link to='/notification'> */}
+                <Card className='user-info-card unopen'>
+                  <span>
+                    <Icon type='setting' style={{ fontSize: '30px', color: '#ccc' }} />
+                  </span>
+                  <span>通知设置</span>
+                  <span>通知设置</span>
+                </Card>
+                {/* </Link> */}
               </Col>
               <Col span={8}>
                 <Card className='user-info-card unopen'>

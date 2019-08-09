@@ -71,15 +71,19 @@ class AddApp extends React.Component {
         this.setState({ percent: Math.floor(percent) })
         break
       case 'done':
-        console.log('done')
         this.setState({
           current: 1
         }, () => {
           // 去解析，获得code
           // 跳转到第三步骤
-          this.timer = setTimeout(() => {
-            this.twoSteps(response.data.id)
-          }, 5000)
+          if (response.err_code !== 200) {
+            message.error(response.err_msg)
+            this.setState({ percent: 0, current: 0 })
+          } else {
+            this.timer = setTimeout(() => {
+              this.twoSteps(response.data.id)
+            }, 5000)
+          }
         })
         break
       default:
@@ -127,6 +131,7 @@ class AddApp extends React.Component {
               </ul>
               <div className='add-app-upload'>
                 <Upload
+                  accept='.ipa'
                   name='file'
                   action={`${process.env.api}/app/upload/ipa`}
                   headers={{
