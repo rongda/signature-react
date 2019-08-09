@@ -1,55 +1,39 @@
 import React, { useState, useEffect } from 'react'
 import { Table } from 'antd'
-import financial from '../../api/financial'
 import {
   TABLE_PAGINATION, INIT_PAGINATION
 } from '../../static/constant'
 
-const { getPurchaseHistory } = financial()
-const columns = [
-  {
-    title: '日期',
-    dataIndex: 'date'
-  },
-  {
-    title: '应用名称',
-    dataIndex: 'name'
-  },
-  {
-    title: '下载量',
-    dataIndex: 'download'
-  },
-  {
-    title: '消费金额',
-    dataIndex: 'amount'
-  }
-]
+/*
+ * filter
+ * func: get data funtion
+ * columns
+ */
 
-function PurchaseHistory({ filter }) {
+function PurchaseHistory({ filter, func, columns }) {
   const [pagination, setPagination] = useState({
     ...INIT_PAGINATION,
     total: 0 // 总共条数
   })
   const [loading, setLoading] = useState(false)
   const [tableData, setTableData] = useState([])
-  // const [prevFilter, setPrevFilter] = useState(null)
-
-  // if (prevFilter !== null && JSON.stringify(filter) !== JSON.stringify(prevFilter)) {
-  //   console.log('test')
-  //   setPrevFilter(filter)
-  // }
-
-  console.log(filter)
 
   async function getData(pagination) {
     try {
       await setLoading(true)
-      const { data } = await getPurchaseHistory({
+      let { data } = await func({
         ...pagination,
         id: filter.id === 'all' ? undefined : filter.id,
         begin: filter.time[0],
         end: filter.time[1]
       })
+      if (data && data.records) {
+        // add rowkey
+        data.records = data.records.map((item, index) => ({
+          ...item,
+          _id: index.toString()
+        }))
+      }
       await setLoading(false)
       await setTableData(data ? data.records : [])
       await setPagination({
@@ -68,7 +52,7 @@ function PurchaseHistory({ filter }) {
 
   return (
     <Table
-      rowKey={'id'}
+      rowKey={'_id'}
       loading={loading}
       columns={columns}
       scroll={{ x: 800 }}
