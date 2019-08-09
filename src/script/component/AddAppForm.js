@@ -195,7 +195,7 @@ class AddAppForm extends React.Component {
             >
               <Button
                 type='primary'
-                disabled={getFieldValue('pics').length >= 5}
+                disabled={getFieldValue('pics') && getFieldValue('pics').length >= 5}
               >上传</Button>
             </Upload>
           )}
