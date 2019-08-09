@@ -14,8 +14,8 @@ module.exports = {
 	},
 	api: {
 		test: 'https://supersign.sicherdata.net',
-		dev: 'http://192.168.100.2:6070',
+		dev: 'https://dev.supersign.sicherdata.net',
 		local: 'http://192.168.100.2:6070',
-		prod: 'https://youduo.sicherdata.net'
+		prod: 'https://supersign.sicherdata.net'
 	}
 }

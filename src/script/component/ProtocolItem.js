@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { Modal } from 'antd'
 
-function ProtocolItem(props) {
-  const { type, onCloseModal, content, footer } = props
+function ProtocolItem({
+  type,
+  onCloseModal,
+  content,
+  footer
+}) {
   const [visible] = useState(true)
-
   return (
     type && <Modal
       centered
