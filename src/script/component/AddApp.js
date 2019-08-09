@@ -195,6 +195,7 @@ class AddApp extends React.Component {
         centered
         width={700}
         footer={null}
+        maskClosable={false}
         title={isUpdate ? '更新应用' : '新增应用'}
         onCancel={onCloseModal}
         wrapClassName='modal-max-scroll'

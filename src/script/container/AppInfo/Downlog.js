@@ -17,7 +17,7 @@ export default class Downlog extends React.Component {
       },
       loading: false,
       tableData: [],
-      id: undefined
+      id: this.props.id
     }
   }
 
@@ -72,16 +72,16 @@ export default class Downlog extends React.Component {
       },
       {
         title: 'UDID',
-        dataIndex: 'udid'
+        dataIndex: 'uuid'
       },
       {
         title: '设备型号',
-        dataIndex: 'device'
+        dataIndex: 'device_model'
       },
-      {
-        title: '系统版本',
-        dataIndex: 'system'
-      },
+      // {
+      //   title: '系统版本',
+      //   dataIndex: 'system'
+      // },
       {
         title: 'app版本',
         dataIndex: 'version'
@@ -92,7 +92,7 @@ export default class Downlog extends React.Component {
       },
       {
         title: '下载类型',
-        dataIndex: 'down_type'
+        dataIndex: 'download_type'
       },
       {
         title: '下载时间',

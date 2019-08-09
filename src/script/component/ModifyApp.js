@@ -49,6 +49,7 @@ class ModifyApp extends React.Component {
         width={700}
         footer={null}
         title={'修改应用'}
+        maskClosable={false}
         onCancel={onCloseModal}
         wrapClassName='modal-max-scroll'
       >

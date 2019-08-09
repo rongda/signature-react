@@ -17,7 +17,7 @@ export default class AppVersion extends React.Component {
       },
       loading: false,
       tableData: [],
-      id: undefined
+      id: this.props.id
     }
   }
 
