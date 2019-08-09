@@ -25,7 +25,6 @@ class AddAppForm extends React.Component {
     const { form, onSubmit } = this.props
     form.validateFields((err, values) => {
       if (!err) {
-        console.log('1111111111111', values)
         onSubmit({
           ...values,
           pics: values.pics.map(item => {
@@ -33,11 +32,10 @@ class AddAppForm extends React.Component {
             if (!item.response) {
               return item.name
             }
-            if (item.response && item.response.error_code === 200) {
-              console.log('item.response.data', item.response.data)
+            if (item.response && item.response.err_code === 200) {
               return item.response.data.split('/img/')[1]
             } else {
-              console.log('error', item.response.error_msg)
+              console.log('error', item.response.err_msg)
             }
           })
         })
