@@ -36,7 +36,10 @@ class ModifyApp extends React.Component {
     }).then(res => {
       message.success('修改成功', 1)
       onCloseModal()
-    }).catch(error => console.log(error))
+    }).catch(error => {
+      message.error(error.err_msg)
+      console.log(error)
+    })
   }
 
   render() {

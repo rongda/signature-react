@@ -44,10 +44,6 @@ class AddAppForm extends React.Component {
     }
     return e && e.fileList
   }
-  handleBeforeUpload(file, fileList) {
-    console.log('handleBeforeUpload', file, fileList)
-    return false
-  }
   render() {
     const { category } = this.state
     const { form, info, isModify, isUpdate } = this.props
@@ -184,7 +180,7 @@ class AddAppForm extends React.Component {
             initialValue: info && info.pics ? info.pics.map(item => ({
               ...item,
               uid: item.id.toString()
-            })) : []
+            })) : undefined
             // initialValue: [{
             //   uid: '1',
             //   name: 't0120b2f23b554b8402.jpg',
@@ -194,7 +190,6 @@ class AddAppForm extends React.Component {
             <Upload
               accept='image/*'
               listType='picture'
-              beforeUpload={this.handleBeforeUpload}
               action={`${process.env.api}/app/upload/pic`}
               headers={{ 'token': storage.getToken() }}
             >

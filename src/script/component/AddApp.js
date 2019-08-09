@@ -109,7 +109,10 @@ class AddApp extends React.Component {
         this.getBaseAppItem()
       })
       this.props.onCloseModal()
-    }).catch(error => console.log(error))
+    }).catch(error => {
+      console.log(error)
+      message.error(error.err_msg)
+    })
   }
 
   renderContent() {
