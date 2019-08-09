@@ -34,7 +34,7 @@ class AddAppForm extends React.Component {
               return item.name
             }
             if (item.response && item.response.error_code === 200) {
-              return item.data.split('/img/')[1]
+              return item.response.data.split('/img/')[1]
             } else {
               console.log('error', item.response.error_msg)
             }
