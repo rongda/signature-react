@@ -27,7 +27,17 @@ class AddAppForm extends React.Component {
       if (!err) {
         onSubmit({
           ...values,
-          pics: values.pics.map(item => item.name)
+          pics: values.pics.map(item => {
+            // item.name
+            if (!item.response) {
+              return item.name
+            }
+            if (item.response && item.response.error_code === 200) {
+              return item.data.split('/img/')[1]
+            } else {
+              console.log('error', item.response.error_msg)
+            }
+          })
         })
       }
     })
@@ -188,7 +198,7 @@ class AddAppForm extends React.Component {
             // }]
           })(
             <Upload
-              multiple
+              // multiple
               accept='image/*'
               listType='picture'
               action={`${process.env.api}/app/upload/pic`}
