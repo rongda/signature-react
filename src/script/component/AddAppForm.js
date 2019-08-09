@@ -26,7 +26,7 @@ class AddAppForm extends React.Component {
     form.validateFields((err, values) => {
       if (!err) {
         onSubmit({
-          values,
+          ...values,
           pics: values.pics.map(item => item.name)
         })
       }
