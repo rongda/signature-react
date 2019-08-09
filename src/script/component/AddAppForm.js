@@ -188,6 +188,7 @@ class AddAppForm extends React.Component {
             // }]
           })(
             <Upload
+              multiple
               accept='image/*'
               listType='picture'
               action={`${process.env.api}/app/upload/pic`}
