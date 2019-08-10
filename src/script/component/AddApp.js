@@ -134,8 +134,9 @@ class AddApp extends React.Component {
               </ul>
               <div className='add-app-upload'>
                 <Upload
-                  accept='.ipa'
                   name='file'
+                  accept='.ipa'
+                  showUploadList={false}
                   action={`${process.env.api}/app/upload/ipa`}
                   headers={{
                     'token': storage.getToken()
