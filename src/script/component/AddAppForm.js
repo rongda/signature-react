@@ -39,8 +39,6 @@ class AddAppForm extends React.Component {
             }
           })
         })
-      } else {
-        console.log('validateFields', err)
       }
     })
   }
@@ -60,7 +58,7 @@ class AddAppForm extends React.Component {
     const { category } = this.state
     const { form, info, isModify, isUpdate } = this.props
     const { getFieldDecorator, getFieldValue } = form
-    console.log('info', info)
+    // console.log('info', info)
     let btn = '发布'
     if (isModify) {
       btn = '修改'
