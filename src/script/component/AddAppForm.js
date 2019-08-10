@@ -67,7 +67,7 @@ class AddAppForm extends React.Component {
       btn = '更新'
     }
     return (
-      <Spin tip='Loading...' spinning={!!info}>
+      <Spin tip='Loading...' spinning={info === null}>
         <Form onSubmit={this.handleSubmit}>
           <Row>
             <Col span={7} />
