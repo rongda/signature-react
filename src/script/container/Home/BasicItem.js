@@ -1,25 +1,9 @@
 import React from 'react'
 import { Row, Col, Icon, Avatar, Statistic, Button, Card, Tooltip } from 'antd'
-import overview from '../../api/overview'
-
-const { getAccountInfo } = overview()
 
 export default class BasicItem extends React.Component {
-  constructor() {
-    super(...arguments)
-    this.state = {
-      data: null
-    }
-  }
-
-  componentDidMount() {
-    getAccountInfo().then(({ data }) => {
-      this.setState({ data })
-    }).catch(err => console.log(err))
-  }
-
   render() {
-    const { data } = this.state
+    const { data } = this.props
     return (
       <React.Fragment>
         <Row className='home-basic'>
