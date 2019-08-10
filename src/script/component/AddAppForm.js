@@ -39,6 +39,8 @@ class AddAppForm extends React.Component {
             }
           })
         })
+      } else {
+        console.log('validateFields', err)
       }
     })
   }
@@ -187,8 +189,7 @@ class AddAppForm extends React.Component {
           <FormItem {...formItemLayout} label={'详情图'}>
             {getFieldDecorator('pics', {
               rules: [{
-                required: true,
-                message: '详情图必填'
+                required: false
               }],
               valuePropName: 'fileList',
               getValueFromEvent: this.normFile,
