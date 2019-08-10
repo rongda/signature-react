@@ -1,8 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Table, Switch, Button, message } from 'antd'
 import overview from '../../api/overview'
 import apps from '../../api/apps'
 import ModifyApp from '../../component/ModifyApp'
+import { unPublish } from '../../store/actions'
 import {
   TABLE_PAGINATION, INIT_PAGINATION
 } from '../../static/constant'
@@ -10,7 +12,15 @@ import {
 const { getOverviewApps } = overview()
 const { updateStatus } = apps()
 
-export default class Tableitem extends React.Component {
+@connect(
+  state => ({
+    publish: state.publish
+  }),
+  {
+    unPublish
+  }
+)
+class Tableitem extends React.Component {
   constructor() {
     super(...arguments)
     this.state = {
@@ -25,6 +35,15 @@ export default class Tableitem extends React.Component {
     }
     this.modifyApp = this.modifyApp.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
+  }
+
+  async componentWillReceiveProps(nextProps) {
+    const { publish } = nextProps
+    const { pagination } = this.state
+    if (publish && !this.props.publish) {
+      await this.getData(pagination)
+      await this.props.unPublish()
+    }
   }
 
   modifyApp(code) {
@@ -166,3 +185,5 @@ export default class Tableitem extends React.Component {
     )
   }
 }
+
+export default Tableitem

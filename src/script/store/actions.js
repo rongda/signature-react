@@ -6,7 +6,8 @@ import permission from '../api/permission'
 import apps from '../api/apps'
 import {
   LOGIN_SUCCESS, LOGOUT_SUCCESS,
-  APPITEM_SUCCESS, APPITEM_FILTER_SUCCESS
+  APPITEM_SUCCESS, APPITEM_FILTER_SUCCESS,
+  PUBLISH_SUCCESS, UN_PUBLISH
 } from './type'
 
 const { getAppList } = apps()
@@ -88,10 +89,21 @@ const getAppItemFilter = value => async(dispatch, getState) => {
   }))
 }
 
+// Publish
+const publishSuccess = () => ({
+  type: APPITEM_SUCCESS
+})
+
+const unPublish = () => ({
+  type: APPITEM_SUCCESS
+})
+
 export {
   tryLogin,
   tryLogout,
   loginSuccess,
   getAppItem,
-  getAppItemFilter
+  getAppItemFilter,
+  publishSuccess,
+  unPublish
 }

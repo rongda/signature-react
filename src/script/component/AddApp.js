@@ -4,7 +4,7 @@ import { Modal, Steps, Button, Upload, Progress, Spin, message } from 'antd'
 import storage from '../utils/storage'
 import upload from '../api/upload'
 import AddAppForm from './AddAppForm'
-import { getAppItem, getAppItemFilter } from '../store/actions'
+import { getAppItem, getAppItemFilter, publishSuccess, unPublish } from '../store/actions'
 
 const { getUploadProcess, getUploadInfo, uploadSubmit } = upload()
 const { Step } = Steps
@@ -15,7 +15,9 @@ const { Step } = Steps
   }),
   {
     getAppItem,
-    getAppItemFilter
+    getAppItemFilter,
+    publishSuccess,
+    unPublish
   }
 )
 class AddApp extends React.Component {
@@ -93,11 +95,12 @@ class AddApp extends React.Component {
 
   handleSubmit(values) {
     const { code } = this.state
-    const { isUpdate } = this.props
+    const { isUpdate, unPublish, publishSuccess } = this.props
     console.log({
       ...values,
       code
     })
+    unPublish()
     uploadSubmit({
       ...values,
       code
@@ -107,6 +110,8 @@ class AddApp extends React.Component {
         const { callback } = this.props
         callback && callback()
         this.getBaseAppItem()
+        // 常用列表重新获取数据
+        publishSuccess()
       })
       this.props.onCloseModal()
     }).catch(error => {
