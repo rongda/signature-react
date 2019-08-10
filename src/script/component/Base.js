@@ -23,7 +23,8 @@ const rootMenuSource = [
   {
     key: 'statistics',
     icon: 'bar-chart',
-    name: '数据统计'
+    name: '数据统计',
+    disabled: true
   }
 ]
 
@@ -96,7 +97,7 @@ class Base extends React.Component {
               )}
             >
               {rootMenuSource.map(item => (
-                <Menu.Item key={item.key}>
+                <Menu.Item key={item.key} disabled={item.disabled}>
                   <Icon type={item.icon} />
                   {item.name}
                 </Menu.Item>
