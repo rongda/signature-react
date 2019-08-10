@@ -188,15 +188,12 @@ class AddAppForm extends React.Component {
           </FormItem>
           <FormItem {...formItemLayout} label={'详情图'}>
             {getFieldDecorator('pics', {
-              rules: [{
-                required: false
-              }],
               valuePropName: 'fileList',
               getValueFromEvent: this.normFile,
               initialValue: info && info.pics ? info.pics.map(item => ({
                 ...item,
                 uid: item.id.toString()
-              })) : undefined
+              })) : []
               // initialValue: [{
               //   uid: '1',
               //   name: 't0120b2f23b554b8402.jpg',
@@ -212,7 +209,7 @@ class AddAppForm extends React.Component {
               >
                 <Button
                   type='primary'
-                  disabled={getFieldValue('pics') && getFieldValue('pics').length >= 5}
+                  disabled={getFieldValue('pics').length >= 5}
                 >上传</Button>
               </Upload>
             )}
