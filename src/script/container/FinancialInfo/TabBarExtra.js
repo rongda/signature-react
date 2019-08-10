@@ -40,7 +40,11 @@ class TabBarExtra extends React.Component {
             {getFieldDecorator('id', {
               initialValue: 'all'
             })(
-              <Select placeholder='选择应用' onChange={value => this.handleChange('id', value)}>
+              <Select
+                placeholder='选择应用'
+                style={{ minWidth: '120px' }}
+                onChange={value => this.handleChange('id', value)}
+              >
                 <Option value={'all'}>全部应用</Option>
                 {source.map((item, index) => (
                   <Option key={index} value={item.id}>{item.name}</Option>
