@@ -91,11 +91,11 @@ const getAppItemFilter = value => async(dispatch, getState) => {
 
 // Publish
 const publishSuccess = () => ({
-  type: APPITEM_SUCCESS
+  type: PUBLISH_SUCCESS
 })
 
 const unPublish = () => ({
-  type: APPITEM_SUCCESS
+  type: UN_PUBLISH
 })
 
 export {
