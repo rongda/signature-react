@@ -70,7 +70,10 @@ export default class Tableitem extends React.Component {
           )
         }))
       })
-    }).catch(error => console.log(error))
+    }).catch(error => {
+      console.log(error)
+      message.error(error.err_msg)
+    })
   }
 
   handleTableChange(pagination) {

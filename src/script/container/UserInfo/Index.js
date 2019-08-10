@@ -51,7 +51,8 @@ export default class UserInfo extends React.Component {
                     <Icon type='setting' style={{ fontSize: '30px', color: '#ccc' }} />
                   </span>
                   <span>通知设置</span>
-                  <span>通知设置</span>
+                  {/* <span>通知设置</span> */}
+                  <span>暂未开通</span>
                 </Card>
                 {/* </Link> */}
               </Col>
