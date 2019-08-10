@@ -186,6 +186,10 @@ class AddAppForm extends React.Component {
           </FormItem>
           <FormItem {...formItemLayout} label={'详情图'}>
             {getFieldDecorator('pics', {
+              rules: [{
+                required: true,
+                message: '详情图必填'
+              }],
               valuePropName: 'fileList',
               getValueFromEvent: this.normFile,
               initialValue: info && info.pics ? info.pics.map(item => ({
