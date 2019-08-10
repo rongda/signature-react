@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Row, Col, Tooltip, Icon, Input, Form, Button, message } from 'antd'
+import { Row, Col, Tooltip, Icon, Input, Form, Button, message, Spin } from 'antd'
 import Base from '../../component/Base'
 import { emailreg } from '../../utils/reg'
 import permission from '../../api/permission'
@@ -60,11 +60,11 @@ class BaseInfo extends React.Component {
             <span>基本信息</span>
             <Link to='/userInfo'>设置</Link>
           </div>
-          {data && (
+          <Spin tip='Loading...' spinning={data === null}>
             <div className='main-box'>
               <Row className='base-info-item'>
                 <Col span={6}>用户名</Col>
-                <Col span={16}>{data.user_name}</Col>
+                <Col span={16}>{data && data.user_name}</Col>
               </Row>
               <Row className='base-info-item'>
                 <Col span={6}>邮箱</Col>
@@ -72,7 +72,7 @@ class BaseInfo extends React.Component {
                   <Form layout='inline' onSubmit={this.bindEmail}>
                     <FormItem className='email'>
                       {getFieldDecorator('email', {
-                        initialValue: data.email,
+                        initialValue: data ? data.email : '',
                         normalize: value => value ? value.replace(/(^\s*)|(\s*$)/g, '') : value, // 禁止输入空格
                         rules: [{
                           required: true, message: '请输入邮箱'
@@ -98,19 +98,19 @@ class BaseInfo extends React.Component {
               </Row>
               <Row className='base-info-item'>
                 <Col span={6}>手机号</Col>
-                <Col span={16}>{data.phone}</Col>
+                <Col span={16}>{data && data.phone}</Col>
               </Row>
               <Row className='base-info-item'>
                 <Col span={6}>信用额度</Col>
                 <Col span={16}>
-                  {data.credit_line ? data.credit_line : '无'}&nbsp;
+                  {data && data.credit_line ? data.credit_line : '无'}&nbsp;
                   <Tooltip placement='bottom' title={'当您余额不足时，可在信用额度范围内继续消费，保持您应用的上架状态。如需提高额度，请联系您的代理商。'}>
                     <Icon type='question-circle' />
                   </Tooltip>
                 </Col>
               </Row>
             </div>
-          )}
+          </Spin>
         </div>
       } />
     )
