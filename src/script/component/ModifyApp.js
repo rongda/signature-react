@@ -25,7 +25,7 @@ class ModifyApp extends React.Component {
   }
 
   handleSubmit(values) {
-    const { code, onCloseModal } = this.props
+    const { code, onCloseModal, callback } = this.props
     console.log({
       ...values,
       code
@@ -34,7 +34,9 @@ class ModifyApp extends React.Component {
       ...values,
       code
     }).then(res => {
-      message.success('修改成功', 1)
+      message.success('修改成功', 1, () => {
+        callback()
+      })
       onCloseModal()
     }).catch(error => {
       message.error(error.err_msg)

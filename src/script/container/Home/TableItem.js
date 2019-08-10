@@ -155,7 +155,13 @@ export default class Tableitem extends React.Component {
           }}
           onChange={pagination => this.handleTableChange(pagination)}
         />
-        {allow && <ModifyApp code={code} onCloseModal={this.handleCloseModal} />}
+        {allow && (
+          <ModifyApp
+            code={code}
+            onCloseModal={this.handleCloseModal}
+            callback={() => this.getData(pagination)}
+          />
+        )}
       </React.Fragment>
     )
   }
