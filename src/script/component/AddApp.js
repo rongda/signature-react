@@ -159,7 +159,12 @@ class AddApp extends React.Component {
                   }}
                   onChange={info => this.analysis(info)}
                 >
-                  <Button type='primary' size='large' loading={percent > 0}>{btnValue}</Button>
+                  <Button
+                    type='primary'
+                    size='large'
+                    disabled={percent > 0}
+                    loading={percent > 0}
+                  >{btnValue}</Button>
                 </Upload>
               </div>
               <div className='add-app-notice'>
