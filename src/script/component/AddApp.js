@@ -152,6 +152,7 @@ class AddApp extends React.Component {
                 <Upload
                   name='file'
                   accept='.ipa'
+                  disabled={percent > 0}
                   showUploadList={false}
                   action={`${process.env.api}/app/upload/ipa`}
                   headers={{
@@ -162,7 +163,6 @@ class AddApp extends React.Component {
                   <Button
                     type='primary'
                     size='large'
-                    disabled={percent > 0}
                     loading={percent > 0}
                   >{btnValue}</Button>
                 </Upload>
