@@ -2,7 +2,8 @@ import React from 'react'
 import { Table } from 'antd'
 import apps from '../../api/apps'
 import {
-  TABLE_PAGINATION, INIT_PAGINATION
+  TABLE_PAGINATION, INIT_PAGINATION,
+  DOWNLOAD_TYPE
 } from '../../static/constant'
 
 const { getDownlog } = apps()
@@ -92,7 +93,7 @@ export default class Downlog extends React.Component {
       },
       {
         title: '下载类型',
-        dataIndex: 'download_type'
+        render: (text, record) => DOWNLOAD_TYPE[record.download_type]
       },
       {
         title: '下载时间',

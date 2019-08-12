@@ -3,6 +3,10 @@ export const SHELF_STATUS = { // 上架状态
   0: '下架',
   1: '上架'
 }
+export const DOWNLOAD_TYPE = {
+  '0': '新用户',
+  '1': '老用户'
+}
 export const INIT_PAGINATION = {
   size: 10, // 每页的条数
   row: 10, // 每页的条数
