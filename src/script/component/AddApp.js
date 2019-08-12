@@ -52,6 +52,8 @@ class AddApp extends React.Component {
       })
       await this.threeSteps()
     } catch (error) {
+      message.error(error.err_msg)
+      this.setState({ percent: 0, current: 0 })
       console.log(error)
     }
   }
