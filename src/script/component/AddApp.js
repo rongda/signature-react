@@ -95,6 +95,10 @@ class AddApp extends React.Component {
           }
         })
         break
+      case 'error':
+        message.error(response ? response.err_msg : '文件也太大了吧')
+        this.setState({ percent: 0, current: 0 })
+        break
       default:
         break
     }
@@ -155,7 +159,7 @@ class AddApp extends React.Component {
                   }}
                   onChange={info => this.analysis(info)}
                 >
-                  <Button type='primary' size='large'>{btnValue}</Button>
+                  <Button type='primary' size='large' loading={percent > 0}>{btnValue}</Button>
                 </Upload>
               </div>
               <div className='add-app-notice'>
