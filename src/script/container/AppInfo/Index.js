@@ -53,7 +53,7 @@ export default class AppInfo extends React.Component {
             <TabPane tab={`启动记录`} key='3' disabled>
               Content of Tab Pane 3
             </TabPane>
-            <TabPane tab='版本记录' key='AppVersion'>
+            <TabPane tab='版本记录' key='AppVersion' disabled>
               <AppVersion id={id} />
             </TabPane>
             <TabPane tab={`渠道`} key='4' disabled>

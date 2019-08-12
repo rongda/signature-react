@@ -27,7 +27,8 @@ class AddApp extends React.Component {
       percent: 0,
       current: 0,
       code: null,
-      info: null
+      info: null,
+      btnValue: '上传应用'
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -53,7 +54,7 @@ class AddApp extends React.Component {
       await this.threeSteps()
     } catch (error) {
       message.error(error.err_msg)
-      this.setState({ percent: 0, current: 0 })
+      this.setState({ percent: 0, current: 0, btnValue: '重新上传' })
       console.log(error)
     }
   }
@@ -64,7 +65,11 @@ class AddApp extends React.Component {
       ({ data: info }) => {
         this.setState({ info })
       }
-    ).catch(error => console.log(error))
+    ).catch(error => {
+      message.error(error.err_msg)
+      this.setState({ percent: 0, current: 0, btnValue: '重新上传' })
+      console.log(error)
+    })
   }
 
   analysis(info) {
@@ -123,7 +128,7 @@ class AddApp extends React.Component {
   }
 
   renderContent() {
-    const { current, percent, info } = this.state
+    const { current, percent, info, btnValue } = this.state
     const { onCloseModal, isUpdate } = this.props
     let main = null
     switch (current) {
@@ -150,7 +155,7 @@ class AddApp extends React.Component {
                   }}
                   onChange={info => this.analysis(info)}
                 >
-                  <Button type='primary' size='large'>重新上传</Button>
+                  <Button type='primary' size='large'>{btnValue}</Button>
                 </Upload>
               </div>
               <div className='add-app-notice'>
