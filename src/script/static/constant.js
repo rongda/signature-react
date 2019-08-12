@@ -7,6 +7,11 @@ export const DOWNLOAD_TYPE = {
   '0': '新用户',
   '1': '老用户'
 }
+export const PAY_TYPE = {
+  '0': '微信',
+  '1': '支付宝',
+  '2': '其他'
+}
 export const INIT_PAGINATION = {
   size: 10, // 每页的条数
   row: 10, // 每页的条数

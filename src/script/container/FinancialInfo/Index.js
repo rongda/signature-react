@@ -6,6 +6,7 @@ import Base from '../../component/Base'
 import financial from '../../api/financial'
 import TabBarExtra from './TabBarExtra.js'
 import FinancialRecord from './FinancialRecord'
+import { PAY_TYPE } from '../../static/constant'
 
 const { TabPane } = Tabs
 const dateFormat = 'YYYY-MM-DD'
@@ -39,7 +40,7 @@ const payColumns = [
   },
   {
     title: '充值方式',
-    dataIndex: 'pay_type'
+    render: (text, record) => PAY_TYPE[record.pay_type]
   },
   {
     title: '充值时间',
