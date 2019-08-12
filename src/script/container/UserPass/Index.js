@@ -46,6 +46,7 @@ class UserPass extends React.Component {
             })
           }).catch(err => {
             console.log(err)
+            message.error(err.err_msg)
             this.setState({ loading: false })
           })
         })
