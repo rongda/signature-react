@@ -30,7 +30,7 @@ const purchaseColumns = [
 ]
 const payColumns = [
   {
-    title: '订单id',
+    title: '订单号',
     dataIndex: 'order_code'
   },
   {
