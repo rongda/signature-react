@@ -21,7 +21,9 @@ class ModifyApp extends React.Component {
       ({ data: info }) => {
         this.setState({ info })
       }
-    ).catch(error => console.log(error))
+    ).catch(error => {
+      message.error(error.err_msg)
+    })
   }
 
   handleSubmit(values) {
