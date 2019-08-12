@@ -139,7 +139,7 @@ class AddApp extends React.Component {
       case 0:
         main = (
           <div className='add-app-content'>
-            <div style={percent > 0 ? { display: 'none' } : {}}>
+            <div>
               <p>上传ipa提示：</p>
               <ul>
                 <li>ipa包里要有codesign文件，如果没有可以由我们技术签名后上传；</li>
