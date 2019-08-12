@@ -1,4 +1,5 @@
 export const TABLE_PAGINATION = ['10', '30', '50', '100']
+export const DATE_FORMATE = 'YYYY-MM-DD'
 export const SHELF_STATUS = { // 上架状态
   0: '下架',
   1: '上架'

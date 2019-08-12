@@ -6,10 +6,9 @@ import Base from '../../component/Base'
 import financial from '../../api/financial'
 import TabBarExtra from './TabBarExtra.js'
 import FinancialRecord from './FinancialRecord'
-import { PAY_TYPE } from '../../static/constant'
+import { PAY_TYPE, DATE_FORMATE } from '../../static/constant'
 
 const { TabPane } = Tabs
-const dateFormat = 'YYYY-MM-DD'
 const { getBalance, getPurchaseHistory, getPayHistory } = financial()
 const purchaseColumns = [
   {
@@ -51,8 +50,8 @@ const payColumns = [
 const filterDefault = {
   id: 'all',
   time: [
-    moment().startOf('month').format(dateFormat),
-    moment().endOf('day').format(dateFormat)
+    moment().startOf('month').format(DATE_FORMATE),
+    moment().endOf('day').format(DATE_FORMATE)
   ]
 }
 
@@ -105,7 +104,7 @@ export default function FinancialInfo() {
               ref={tabBarExtraRef}
               filterData={filter => setFilter({
                 ...filter,
-                time: filter.time.map(item => moment(item).format(dateFormat))
+                time: filter.time.map(item => moment(item).format(DATE_FORMATE))
               })}
               isShowApp={activeKey === 'purchaseHistory'}
             />

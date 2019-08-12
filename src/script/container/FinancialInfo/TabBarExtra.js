@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Select, DatePicker } from 'antd'
 import moment from 'moment'
+import { DATE_FORMATE } from '../../static/constant'
 
 const FormItem = Form.Item
 const { Option } = Select
 const { RangePicker } = DatePicker
-const dateFormat = 'YYYY-MM-DD'
 
 @connect(
   state => ({
@@ -61,7 +61,7 @@ class TabBarExtra extends React.Component {
             ]
           })(
             <RangePicker
-              format={dateFormat}
+              format={DATE_FORMATE}
               onChange={value => this.handleChange('time', value)}
             />
           )}
