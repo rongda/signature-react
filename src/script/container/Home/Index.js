@@ -4,6 +4,7 @@ import Base from '../../component/Base'
 import TableItem from './TableItem'
 import BasicItem from './BasicItem'
 import overview from '../../api/overview'
+import storage from '../../utils/storage'
 
 const { getAccountInfo } = overview()
 
@@ -15,7 +16,7 @@ export default class Home extends React.Component {
     }
   }
   componentDidMount() {
-    getAccountInfo().then(({ data }) => {
+    storage.getToken() && getAccountInfo().then(({ data }) => {
       this.setState({ data })
     }).catch(err => console.log(err))
   }
