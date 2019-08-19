@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import { Table, Switch, Button, message } from 'antd'
 import overview from '../../api/overview'
@@ -12,6 +12,19 @@ import {
 const { getOverviewApps } = overview()
 const { updateStatus } = apps()
 
+interface State {
+  pagination: any,
+  loading: boolean,
+  tableData: Array<any>,
+  allow: boolean,
+  code: string | null
+}
+
+interface Props {
+  publish?: boolean,
+  unPublish?: Function
+}
+
 @connect(
   state => ({
     publish: state.publish
@@ -20,9 +33,9 @@ const { updateStatus } = apps()
     unPublish
   }
 )
-class Tableitem extends React.Component {
-  constructor() {
-    super(...arguments)
+class TableItem extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
     this.state = {
       pagination: {
         ...INIT_PAGINATION,
@@ -46,7 +59,7 @@ class Tableitem extends React.Component {
     }
   }
 
-  modifyApp(code) {
+  modifyApp(code):void {
     this.setState({ allow: true, code })
   }
 
@@ -55,7 +68,7 @@ class Tableitem extends React.Component {
     this.getData(INIT_PAGINATION)
   }
 
-  async getData(pagination) {
+  async getData(pagination: {}) {
     try {
       await this.setState({ loading: true })
       const { data } = await getOverviewApps(pagination)
@@ -73,7 +86,7 @@ class Tableitem extends React.Component {
     }
   }
 
-  handleStatus(record) {
+  handleStatus(record: any): void {
     console.log(record)
     updateStatus(
       record.id,
@@ -89,24 +102,24 @@ class Tableitem extends React.Component {
           )
         }))
       })
-    }).catch(error => {
+    }).catch((error): void => {
       console.log(error)
       message.error(error.err_msg)
     })
   }
 
-  handleTableChange(pagination) {
+  handleTableChange(pagination: any): void {
     const { current: page, pageSize: row } = pagination
     this.getData({ row, page })
   }
 
-  handleCloseModal() {
+  handleCloseModal(): void {
     this.setState({ allow: false })
   }
 
-  render() {
+  render(): React.ReactElement {
     const { pagination, loading, tableData, allow, code } = this.state
-    const columns = [
+    const columns:Array<Object> = [
       {
         title: '应用名称',
         key: 'name',
@@ -186,4 +199,4 @@ class Tableitem extends React.Component {
   }
 }
 
-export default Tableitem
+export default TableItem

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Tag } from 'antd'
 import Base from '../../component/Base'
 import TableItem from './TableItem'
@@ -8,19 +8,29 @@ import storage from '../../utils/storage'
 
 const { getAccountInfo } = overview()
 
-export default class Home extends React.Component {
-  constructor() {
-    super(...arguments)
+interface Props {}
+interface State {
+  data: {
+    balance: string,
+    [propName: string]: any
+  }
+}
+
+export default class Home extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
     this.state = {
       data: null
     }
   }
-  componentDidMount() {
-    storage.getToken() && getAccountInfo().then(({ data }) => {
+
+  componentDidMount(): void {
+    storage.getToken() && getAccountInfo().then(({ data }): void => {
       this.setState({ data })
-    }).catch(err => console.log(err))
+    }).catch((err): void => console.log(err))
   }
-  render() {
+
+  render(): React.ReactElement {
     const { data } = this.state
     return (
       <Base content={

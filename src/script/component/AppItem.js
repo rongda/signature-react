@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
 import { getAppItem, getAppItemFilter } from '../store/actions'
-import Publish from './Publish'
+import Publish from './Publish.tsx'
 
 @connect(
   state => ({

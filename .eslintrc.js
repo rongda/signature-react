@@ -20,15 +20,12 @@ module.exports = {
     "standard-react" // https://github.com/feross/eslint-config-standard-react
   ],
   "settings": {
-    "react": {
-      "version": "16.4.2",
-      "flowVersion": "0.53"
-    }
   },
   "plugins": [
     "babel",
     "react",
-    "promise"
+    "promise",
+    "typescript"
   ],
   "globals": {
     "__DEV__": true,

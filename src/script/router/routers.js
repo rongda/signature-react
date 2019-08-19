@@ -1,4 +1,4 @@
-import Home from '../container/Home/Index'
+import Home from '../container/Home/Index.tsx'
 import Login from '../container/Login/Index'
 import Register from '../container/Register/Index'
 import ResetPwd from '../container/ResetPwd/Index'
