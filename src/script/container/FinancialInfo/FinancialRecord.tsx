@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Table } from 'antd'
+import IFilterDefault from './IFilterDefault'
 import {
   TABLE_PAGINATION, INIT_PAGINATION
 } from '../../static/constant'
@@ -10,15 +11,25 @@ import {
  * columns
  */
 
-function PurchaseHistory({ filter, func, columns }) {
-  const [pagination, setPagination] = useState({
+interface Props {
+  filter: IFilterDefault,
+  func: Function,
+  columns: Array<{ [propName: string]: any }>
+}
+
+function PurchaseHistory({
+  filter,
+  func,
+  columns
+}: Props) {
+  const [pagination, setPagination] = useState<{ [propName: string]: any }>({
     ...INIT_PAGINATION,
     total: 0 // 总共条数
   })
-  const [loading, setLoading] = useState(false)
-  const [tableData, setTableData] = useState([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [tableData, setTableData] = useState<Array<any>>([])
 
-  async function getData(pagination) {
+  async function getData(pagination: { [propName: string]: any }) {
     try {
       await setLoading(true)
       let { data } = await func({

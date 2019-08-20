@@ -7,7 +7,7 @@ import Statistics from '../container/Statistics/Index'
 import AppInfo from '../container/AppInfo/Index'
 import BaseInfo from '../container/BaseInfo/Index'
 import UserPass from '../container/UserPass/Index'
-import FinancialInfo from '../container/FinancialInfo/Index'
+import FinancialInfo from '../container/FinancialInfo/Index.tsx'
 import Notification from '../container/Notification/Index'
 
 // base routers

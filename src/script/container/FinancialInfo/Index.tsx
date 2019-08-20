@@ -7,10 +7,12 @@ import financial from '../../api/financial'
 import TabBarExtra from './TabBarExtra.js'
 import FinancialRecord from './FinancialRecord'
 import { PAY_TYPE, DATE_FORMATE } from '../../static/constant'
+import IFilterDefault from './IFilterDefault'
 
 const { TabPane } = Tabs
 const { getBalance, getPurchaseHistory, getPayHistory } = financial()
-const purchaseColumns = [
+
+const purchaseColumns: Array<{ [propName: string]: any }> = [
   {
     title: '日期',
     dataIndex: 'date'
@@ -28,7 +30,7 @@ const purchaseColumns = [
     dataIndex: 'amount'
   }
 ]
-const payColumns = [
+const payColumns: Array<{ [propName: string]: any }> = [
   {
     title: '订单号',
     dataIndex: 'order_code'
@@ -47,7 +49,7 @@ const payColumns = [
   }
 ]
 
-const filterDefault = {
+const filterDefault: IFilterDefault = {
   id: 'all',
   time: [
     moment().startOf('month').format(DATE_FORMATE),
@@ -55,19 +57,19 @@ const filterDefault = {
   ]
 }
 
-export default function FinancialInfo() {
+export default function FinancialInfo(): React.ReactElement {
   const tabBarExtraRef = useRef(null)
-  const [balance, setBalance] = useState('0')
-  const [filter, setFilter] = useState(filterDefault)
-  const [activeKey, setActiveKey] = useState('purchaseHistory')
+  const [balance, setBalance] = useState<string>('0')
+  const [filter, setFilter] = useState<IFilterDefault>(filterDefault)
+  const [activeKey, setActiveKey] = useState<string>('purchaseHistory')
 
   useEffect(() => {
     getBalance().then(({ data }) => {
       setBalance(data.balance)
-    }).catch(error => console.log(error))
+    }).catch((error): void => console.log(error))
   }, [])
 
-  function handleTabsChange(activeKey) {
+  function handleTabsChange(activeKey: string): void {
     setActiveKey(activeKey)
     setFilter(filterDefault)
     // 重置搜索框

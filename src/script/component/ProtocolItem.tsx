@@ -20,7 +20,7 @@ function ProtocolItem({
   onCloseModal,
   content,
   footer
-}: Props): any {
+}: Props): React.ReactElement {
   const [visible] = useState<boolean>(true)
   return (
     type && <Modal
