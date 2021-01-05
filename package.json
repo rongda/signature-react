@@ -12,7 +12,7 @@
   "author": "Roda",
   "dependencies": {
     "antd": "^3.20.5",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "crypto-js": "^3.1.9-1",
     "prop-types": "^15.7.2",
